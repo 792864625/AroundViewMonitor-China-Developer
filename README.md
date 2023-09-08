@@ -8,6 +8,7 @@ Open Source AVM Algorithm Operator：
 4. fusion
 5. assistant view
 6. 3D Avm
+7. self calibration
 ZHIHU link for chinese friends: https://www.zhihu.com/people/bu-shou-hui-120-bu-gai-ming
 
 
@@ -19,4 +20,5 @@ ZHIHU link for chinese friends: https://www.zhihu.com/people/bu-shou-hui-120-bu-
 4. 图像融合
 5. 辅助视角
 6. 3D AVM
+7. 相机自标定
 国内的朋友可以参考：https://www.zhihu.com/people/bu-shou-hui-120-bu-gai-ming
