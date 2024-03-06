@@ -1,6 +1,32 @@
 #include "undistort.h"
 
+Undistort::Undistort() {
+  
+  m_fish_scale = 0.5;
+  m_focal_length = 910;
+  m_dx = 3;
+  m_dy = 3;
+  m_fish_width = 1280;
+  m_fish_height = 960;
+  m_undis_scale = 1.55;
 
+  
+
+  m_undis2fish_params = {0.18238692, -0.08579553, 0.03366532, -0.00561911};
+
+  m_undis_width = m_undis_scale * m_fish_width;
+  m_undis_height = m_undis_scale * m_fish_height;
+
+  m_intrinsic_undis =
+      (cv::Mat_<float>(3, 3) << m_focal_length / m_dx * m_fish_scale, 0,
+       m_fish_width / 2 * m_undis_scale, 0,
+       m_focal_length / m_dy * m_fish_scale, m_fish_height / 2 * m_undis_scale,
+       0, 0, 1);
+
+  m_intrinsic =
+      (cv::Mat_<float>(3, 3) << m_focal_length / m_dx, 0, m_fish_width / 2, 0,
+       m_focal_length / m_dy, m_fish_height / 2, 0, 0, 1);
+}
 void warpPointOpencv(cv::Vec2f &warp_xy, float map_center_h, float map_center_w,
                      float x_, float y_, float scale) {
   warp_xy[0] = x_ * scale + map_center_w;
@@ -29,10 +55,6 @@ cv::Vec2f warpUndist2Fisheye(float fish_scale, float f_dx, float f_dy,
   float y_ = (y - large_center_h) / f_dy;  // normalized plane
   float x_ = (x - large_center_w) / f_dx;
   float r_ = static_cast<float>(sqrt(pow(x_, 2) + pow(y_, 2)));
-
-  // Look up table
-  /*int num = atan(r_) / atan(m_d) * 1024;
-  float angle_distorted = m_Lut[num];*/
 
   float angle_undistorted = atan(r_);  // theta
   float angle_undistorted_p2 = angle_undistorted * angle_undistorted;
@@ -94,38 +116,14 @@ void Undistort::getUndistortMap(vector<cv::Mat> &remap_table, int undist_w,
   remap_table.push_back(map_y);
 }
 
-void Undistort::remap(cv::Mat img) {
-  std::vector<cv::Mat> remap_table = std::vector<cv::Mat>();
-
-  int undis_width = 1984;
-  int undis_height = 1488;
-  float m_fish_scale = 0.5;
-
-  float m_focal_length = 910;
-  float m_dx = 3;
-  float m_dy = 3;
-  float fish_width = 1280;
-  float fish_height = 960;
-  float m_undis_scale = 1.5;
+cv::Mat Undistort::undistort_func(cv::Mat img, vector<cv::Mat> &remap_table) {
+  
   // calib init
-  Mat m_intrinsic_undis =
-      (cv::Mat_<float>(3, 3) << m_focal_length / m_dx * m_fish_scale, 0,
-       fish_width / 2 * m_undis_scale, 0, m_focal_length / m_dy * m_fish_scale,
-       fish_height / 2 * m_undis_scale, 0, 0, 1);
-
-  Mat m_intrinsic =
-      (cv::Mat_<float>(3, 3) << m_focal_length / m_dx, 0, fish_width / 2, 0,
-       m_focal_length / m_dy, fish_height / 2, 0, 0, 1);
-  cv::Vec4d m_undis2fish_params = {0.18238692, -0.08579553, 0.03366532,
-                                   -0.00561911};
-  getUndistortMap(remap_table, undis_width, undis_height, m_intrinsic_undis,
+  getUndistortMap(remap_table, m_undis_width, m_undis_height, m_intrinsic_undis,
                 m_intrinsic, m_undis2fish_params, m_fish_scale);
 
-  cv::Mat undis2dis_mapx = remap_table[0];
-  cv::Mat undis2dis_mapy = remap_table[1];
-
   cv::Mat undis_img;
-  cv::remap(img, undis_img, undis2dis_mapx, undis2dis_mapy,
+  cv::remap(img, undis_img, remap_table[0], remap_table[1],
             cv::INTER_LINEAR);
-
+  return undis_img;
 }

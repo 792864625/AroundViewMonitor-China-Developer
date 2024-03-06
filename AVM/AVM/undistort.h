@@ -8,13 +8,18 @@ using namespace cv;
 using namespace std;
 class Undistort {
  public:
+  Undistort();
   //Í¼ÏñµÄÈ¥»û±ä
-  void remap(cv::Mat img);
-  void getUndistortMap(
-      vector<cv::Mat> &remap_table, int undist_w,
-      int undist_h, cv::Mat intrinsic_undis, cv::Mat intrinsic_fish,
-      cv::Vec4d undis_param, float fish_scale);
+  cv::Mat undistort_func(cv::Mat img, vector<cv::Mat> &remap_table);
+  
  private:
-  void meshGrid(const int w, const int h, const float step_size,
-                           cv::Mat &map_x, cv::Mat &map_y);
+  void getUndistortMap(vector<cv::Mat> &remap_table, int undist_w, int undist_h,
+                       cv::Mat intrinsic_undis, cv::Mat intrinsic_fish,
+                       cv::Vec4d undis_param, float fish_scale);
+  int m_undis_width, m_undis_height;
+  float m_fish_scale, m_focal_length, m_dx, m_dy, m_fish_width, m_fish_height,
+      m_undis_scale;
+  cv::Vec4d m_undis2fish_params;
+  cv::Mat m_intrinsic_undis, m_intrinsic;
+
 };
