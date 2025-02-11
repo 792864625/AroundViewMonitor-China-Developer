@@ -1,4 +1,4 @@
-# AroundViewMonitor-China-Developer
+# AroundViewMonitor-China-Developer（360全景环视）
 ## 0. 项目说明  
 国内某主机厂AVM（360全景环视）Pipeline Demo开源。  
 包含内容：相机标定、鱼眼相机去畸变、360全景拼接融合、3D视角、辅助视角、自标定等。  
