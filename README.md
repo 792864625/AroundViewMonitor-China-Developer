@@ -1,24 +1,28 @@
 # AroundViewMonitor-China-Developer
-Around View Monitor Algorithm Pipeline
+## 0. 项目说明  
+基于国内某主机厂AVM Pipeline开源的demo（360全景环视）包含内容：相机标定、鱼眼相机去畸变、360拼接融合、3D视角、辅助视角、自标定等。  
+算法原理见个人知乎专栏：https://www.zhihu.com/column/c_1696190558530326528。  
+合作+V：tjy792864625
 
-Open Source AVM Algorithm Operator：
-1. fisheye undistort
-2. camera extrinsic calibration
-3. Homo and BEV
-4. fusion
-5. assistant view
-6. 3D Avm
-7. self calibration
-ZHIHU link for chinese friends: https://www.zhihu.com/people/bu-shou-hui-120-bu-gai-ming
+## 1. 环境配置  
+```
+visual studio 2019
+opencv 4.5.0
+opencv_contrib-4.5.0
+```
+
+## 2. demo运行说明
+```
+2.1 计算鱼眼畸变系数
+python correct.py
+2.2 运行avm demo
+test.cpp
+```
+
+## 3. 输入输出  
+输入：鱼眼图+mask  
 
 
-*************************************************************************************
-开源AVM环视系统中各算子代码
-1. 鱼眼相机去畸变
-2. 相机外参标定
-3. 单应矩阵生成鸟瞰图
-4. 图像融合
-5. 辅助视角
-6. 3D AVM
-7. 相机自标定
-国内的朋友可以参考：https://www.zhihu.com/people/bu-shou-hui-120-bu-gai-ming
+输出：360全景融合, 各种辅助视角，3D视角等
+
+
