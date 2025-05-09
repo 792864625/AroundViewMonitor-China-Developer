@@ -7,8 +7,6 @@
 **合作或寻求技术支持** +V(通过知乎)  
 ### 0.1 360全景环视拼接  
 https://github.com/user-attachments/assets/8c6956d2-8180-4960-aebd-b2b1e8775f64
-### 0.2 3D 视角  
-https://github.com/user-attachments/assets/b5dc3f79-09e2-4b82-96b3-e0de65cb84cc
 ## 1. 环境配置  
 ```
 visual studio 2019
@@ -24,18 +22,7 @@ python correct.py
 test.cpp
 ```
 
-## 3. 输入  
-### 3.1 鱼眼图  
-![图片1](https://github.com/user-attachments/assets/0aae2cd7-1046-479c-bf56-ae19bb2c6ee4)  
-### 3.2 融合mask
-![图片2](https://github.com/user-attachments/assets/ae246ea5-3a60-4861-990c-7763bb252464)  
 
-## 3. 输出
-### 3.1 360全景融合
-![bev](https://github.com/user-attachments/assets/ed942443-6e68-45a1-91e1-6bf99050e97d)   
-
-### 3.2 辅助视角（车轮\广角\3D等）
-![assist](https://github.com/user-attachments/assets/a925cfda-2225-4d48-a92f-809318509ac1)
 
 
 
