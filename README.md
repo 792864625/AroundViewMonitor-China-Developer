@@ -1,4 +1,4 @@
-# AroundViewMonitor-China-Developer（360全景环视）
+# 360全景环视
 ## 0. 项目说明  
 360全景环视 Pipeline Demo开源。  
 ### 0.1 360全景环视拼接  
